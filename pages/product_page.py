@@ -1,4 +1,5 @@
 import math
+import time
 
 from selenium.common.exceptions import NoAlertPresentException
 
@@ -18,8 +19,8 @@ class ProductPage(BasePage):
         try:
             return self.browser.switch_to.alert
         except NoAlertPresentException:
-            # raise NoAlertPresentException('Нет доступных оповещений для переключения.')
-            assert False, 'Нет доступных оповещений для переключения.'
+            raise NoAlertPresentException('Нет доступных оповещений для переключения.')
+            # assert False, 'Нет доступных оповещений для переключения.'
 
     def solve_quiz_and_get_code(self):
         alert = self.switch_to_alert()
@@ -27,10 +28,13 @@ class ProductPage(BasePage):
         answer = str(math.log(abs((12 * math.sin(float(x))))))
         alert.send_keys(answer)
         alert.accept()
-        sec_alert = self.switch_to_alert()
-        alert_text = sec_alert.text
-        print(f"Ваш код: {alert_text}")
-        sec_alert.accept()
+        try:
+            sec_alert = self.switch_to_alert()
+            alert_text = sec_alert.text
+            print(f"Ваш код: {alert_text}")
+            sec_alert.accept()
+        except NoAlertPresentException:
+            pass
 
     def is_product_name_equal_product_name_in_cart(self):
         product_name = self.browser.find_element(*PP.PRODUCT_NAME).text
