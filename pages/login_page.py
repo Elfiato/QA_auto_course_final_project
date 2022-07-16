@@ -13,10 +13,10 @@ class LoginPage(BasePage):
 
     def should_be_login_form(self):
         assert self.is_element_present(*LP.LOGIN_EMAIL), "Нет формы ввода почты при авторизации"
-        assert self.is_element_present(*LP.LOGIN_PASSWORD), "Нет формы ввода пароя при авторизации"
+        assert self.is_element_present(*LP.LOGIN_PASSWORD), "Нет формы ввода пароля при авторизации"
 
     def should_be_register_form(self):
         assert self.is_element_present(*LP.REGISTRATION_EMAIL), "Нет формы ввода почты при регистрации"
-        assert self.is_element_present(*LP.REGISTRATION_PASSWORD), "Нет формы ввода первого пароя при регистрации"
+        assert self.is_element_present(*LP.REGISTRATION_PASSWORD), "Нет формы ввода первого пароля при регистрации"
         assert self.is_element_present(
-            *LP.CONFIRM_REGISTRATION_PASSWORD), "Нет формы ввода второго пароя при регистрации"
+            *LP.CONFIRM_REGISTRATION_PASSWORD), "Нет формы ввода второго пароля при регистрации"
