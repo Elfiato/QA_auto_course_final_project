@@ -55,5 +55,3 @@ class ProductPage(BasePage):
 
     def is_success_message_disappeared(self):
         assert self.is_disappeared(*PP.PRODUCT_NAME_IN_CART), 'Оповещение о добавлении товара в корзину не исчезло'
-
-
