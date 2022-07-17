@@ -1,4 +1,5 @@
 from .pages.product_page import ProductPage
+from .pages.basket_page import BasketPage
 import pytest
 
 
@@ -6,7 +7,8 @@ def get_data_for_parametrize():
     # product_base_link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207"
     # links = [f"{product_base_link}/?promo=offer{no}" for no in range(10)]
     links = [['http://selenium1py.pythonanywhere.com/catalogue/the-shellcoders-handbook_209/?promo=newYear'],
-             ['http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/']]
+             ['http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/'],
+             ['http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=newYear2019']]
     return links[-1]
 
 
@@ -53,3 +55,11 @@ class TestProductPage:
         page = ProductPage(browser, link)
         page.open()
         page.go_to_login_page()
+
+    def test_guest_cant_see_product_in_basket_opened_from_product_page(self, browser, link):
+        page = ProductPage(browser, link)
+        page.open()
+        page.go_to_basket()
+        basket_page = BasketPage(browser, browser.current_url)
+        basket_page.is_basket_empty()
+        basket_page.is_present_basket_empty_text()

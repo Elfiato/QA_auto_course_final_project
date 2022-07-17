@@ -1,6 +1,10 @@
 from selenium.webdriver.common.by import By
 
 
+class URLs:
+    MAIN_PAGE_URL = 'http://selenium1py.pythonanywhere.com/'
+
+
 class LoginPageLocators:
     LOGIN_EMAIL = (By.CSS_SELECTOR, 'input#id_login-username')
     LOGIN_PASSWORD = (By.CSS_SELECTOR, 'input#id_login-password')
@@ -19,3 +23,9 @@ class ProductPageLocators:
 
 class BasePageLocators:
     LOGIN_LINK = (By.CSS_SELECTOR, "#login_link")
+    BASKET_HEADER = (By.CSS_SELECTOR, '.basket-mini .btn-group .btn:first-child')
+
+
+class BasketPageLocators:
+    BASKET_SUMMARY = (By.CSS_SELECTOR, '#content_inner .basket_summary')
+    BASKET_EMPTY_TEXT = (By.CSS_SELECTOR, '#content_inner p')

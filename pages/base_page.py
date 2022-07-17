@@ -1,7 +1,7 @@
 from selenium.common.exceptions import NoSuchElementException, TimeoutException, NoAlertPresentException
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from .locators import BasePageLocators as BP
+from .locators import BasePageLocators
 
 
 class BasePage:
@@ -51,8 +51,12 @@ class BasePage:
             # assert False, 'Нет доступных оповещений для переключения.'
 
     def go_to_login_page(self):
-        login_link = self.get_present_element(*BP.LOGIN_LINK)
+        login_link = self.get_present_element(*BasePageLocators.LOGIN_LINK)
         login_link.click()
 
     def should_be_login_link(self):
-        assert self.is_element_present(*BP.LOGIN_LINK), "Ссылка на страницу авторизации не отображается"
+        assert self.is_element_present(*BasePageLocators.LOGIN_LINK), "Ссылка на страницу авторизации не отображается"
+
+    def go_to_basket(self):
+        self.get_present_element(*BasePageLocators.BASKET_HEADER).click()
+
