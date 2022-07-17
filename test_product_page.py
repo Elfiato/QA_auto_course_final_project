@@ -1,6 +1,11 @@
+import time
+
+import pytest
+
 from .pages.product_page import ProductPage
 from .pages.basket_page import BasketPage
-import pytest
+from .pages.locators import URLs
+from .pages.login_page import LoginPage
 
 
 def get_data_for_parametrize():
@@ -32,11 +37,6 @@ class TestProductPage:
         page.solve_quiz_and_get_code()
         page.should_not_be_success_message()
 
-    def test_guest_cant_see_success_message(self, browser, link):
-        page = ProductPage(browser, link)
-        page.open()
-        page.should_not_be_success_message()
-
     @pytest.mark.xfail(
         reason="Отрицательная проверка: при добавлении товара в корзину оповещение об успещном добавлении не исчезает.")
     def test_message_disappeared_after_adding_product_to_basket(self, browser, link):
@@ -63,3 +63,32 @@ class TestProductPage:
         basket_page = BasketPage(browser, browser.current_url)
         basket_page.is_basket_empty()
         basket_page.is_present_basket_empty_text()
+
+    def test_guest_cant_see_success_message(self, browser, link):
+        page = ProductPage(browser, link)
+        page.open()
+        page.should_not_be_success_message()
+
+
+@pytest.mark.parametrize('link', get_data_for_parametrize())
+class TestUserAddToBasketFromProductPage:
+    @pytest.fixture(scope="function", autouse=True)
+    def setup(self, browser):
+        login_page = LoginPage(browser, URLs.LOGIN_PAGE_URL)
+        login_page.open()
+        login_page.register_new_user(f'{time.time()}@qwe.com', time.time() + 1)
+        login_page.should_be_authorized_user()
+
+    def test_user_cant_see_success_message(self, browser, link):
+        page = ProductPage(browser, link)
+        page.open()
+        page.should_not_be_success_message()
+
+    def test_user_can_add_product_to_basket(self, browser, link):
+        page = ProductPage(browser, link)
+        page.open()
+        page.should_not_be_success_message()
+        page.add_to_cart()
+        page.solve_quiz_and_get_code()
+        page.is_product_name_equal_product_name_in_cart()
+        page.is_price_in_cart_equal_product_price()

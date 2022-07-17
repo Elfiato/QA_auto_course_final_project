@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 
 class URLs:
     MAIN_PAGE_URL = 'http://selenium1py.pythonanywhere.com/'
+    LOGIN_PAGE_URL = 'http://selenium1py.pythonanywhere.com/en-gb/accounts/login/'
 
 
 class LoginPageLocators:
@@ -11,6 +12,7 @@ class LoginPageLocators:
     REGISTRATION_EMAIL = (By.CSS_SELECTOR, 'input#id_registration-email')
     REGISTRATION_PASSWORD = (By.CSS_SELECTOR, 'input#id_registration-password1')
     CONFIRM_REGISTRATION_PASSWORD = (By.CSS_SELECTOR, 'input#id_registration-password2')
+    REGISTRATION_SUBMIT_BTN = (By.NAME, 'registration_submit')
 
 
 class ProductPageLocators:
@@ -24,6 +26,7 @@ class ProductPageLocators:
 class BasePageLocators:
     LOGIN_LINK = (By.CSS_SELECTOR, "#login_link")
     BASKET_HEADER = (By.CSS_SELECTOR, '.basket-mini .btn-group .btn:first-child')
+    USER_ICON = (By.CSS_SELECTOR, ".icon-user")
 
 
 class BasketPageLocators:

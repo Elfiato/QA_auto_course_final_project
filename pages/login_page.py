@@ -20,3 +20,9 @@ class LoginPage(BasePage):
         assert self.is_element_present(*LP.REGISTRATION_PASSWORD), "Нет формы ввода первого пароля при регистрации"
         assert self.is_element_present(
             *LP.CONFIRM_REGISTRATION_PASSWORD), "Нет формы ввода второго пароля при регистрации"
+
+    def register_new_user(self, email, password):
+        self.get_present_element(*LP.REGISTRATION_EMAIL).send_keys(email)
+        self.get_present_element(*LP.REGISTRATION_PASSWORD).send_keys(password)
+        self.get_present_element(*LP.CONFIRM_REGISTRATION_PASSWORD).send_keys(password)
+        self.get_present_element(*LP.REGISTRATION_SUBMIT_BTN).click()
