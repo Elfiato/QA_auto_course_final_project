@@ -1,5 +1,6 @@
 import time
 
+import allure
 import pytest
 
 from .pages.product_page import ProductPage
@@ -19,6 +20,7 @@ def get_data_for_parametrize():
 
 @pytest.mark.parametrize('link', get_data_for_parametrize())
 class TestProductPage:
+    @allure.step('Проверка на добавление незарегистрированным пользователем товара в корзину.')
     @pytest.mark.need_review
     def test_guest_can_add_product_to_basket(self, browser, link):
         page = ProductPage(browser, link)

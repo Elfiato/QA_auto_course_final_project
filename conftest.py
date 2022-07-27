@@ -1,3 +1,4 @@
+import allure
 import pytest
 from selenium import webdriver
 
@@ -13,13 +14,15 @@ def browser(request):
     browser_name = request.config.getoption('browser_name')
     language = request.config.getoption('language')
     if browser_name == "chrome":
-        options = webdriver.ChromeOptions()
-        options.add_experimental_option('prefs', {'intl.accept_languages': language})
-        driver = webdriver.Chrome(options=options)
+        with allure.step('Выбран браузер Google Chrome'):
+            options = webdriver.ChromeOptions()
+            options.add_experimental_option('prefs', {'intl.accept_languages': language})
+            driver = webdriver.Chrome(options=options)
     elif browser_name == "firefox":
-        options = webdriver.FirefoxProfile()
-        options.set_preference("intl.accept_languages", language)
-        driver = webdriver.Firefox(firefox_profile=options)
+        with allure.step('Выбран браузер Mozilla Firefox'):
+            options = webdriver.FirefoxProfile()
+            options.set_preference("intl.accept_languages", language)
+            driver = webdriver.Firefox(firefox_profile=options)
     else:
         raise pytest.UsageError("--browser_name should be chrome or firefox")
     yield driver

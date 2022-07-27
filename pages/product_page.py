@@ -1,5 +1,6 @@
 import math
 
+import allure
 from selenium.common.exceptions import NoAlertPresentException, TimeoutException
 
 from .base_page import BasePage
@@ -7,6 +8,7 @@ from .locators import ProductPageLocators as PP
 
 
 class ProductPage(BasePage):
+    @allure.step('Добавление товара в корзину.')
     def add_to_cart(self):
         self.should_be_add_to_cart_btn()
         self.get_present_element(*PP.ADD_TO_CART_BTN).click()
@@ -14,6 +16,7 @@ class ProductPage(BasePage):
     def should_be_add_to_cart_btn(self):
         assert self.is_element_present(*PP.ADD_TO_CART_BTN), 'Кнопка добавления в корзину отсутствует.'
 
+    @allure.step('Вычисление уравнения и получение проверочного кода.')
     def solve_quiz_and_get_code(self):
         try:
             alert = self.switch_to_alert()
@@ -32,6 +35,8 @@ class ProductPage(BasePage):
             print(f'На странице {self.url} нет необходимости вычислять значение выражения для добавления товра в '
                   f'корзину.')
 
+    @allure.step(
+        'Проверка на соответсвие названия названия товара добавленного в корзину и названия товара на странице.')
     def is_product_name_equal_product_name_in_cart(self):
         product_name = self.get_present_element(*PP.PRODUCT_NAME).text
         product_name_in_cart = self.get_present_element(*PP.PRODUCT_NAME_IN_CART).text
@@ -41,6 +46,7 @@ class ProductPage(BasePage):
         assert product_name == product_name_in_cart, \
             'Названия товара,добавленного в корзину не соотвествует названию на странце'
 
+    @allure.step('Проверка на соответсвие цены товаров в корзине цене добавленного товара.')
     def is_price_in_cart_equal_product_price(self):
         product_price = self.get_present_element(*PP.PRODUCT_PRICE).text
         price_in_cart = self.get_present_element(*PP.CART_PRICE).text
@@ -48,6 +54,7 @@ class ProductPage(BasePage):
             f'{product_price} - цена товара \n{price_in_cart} - цена в корзине')
         assert product_price == price_in_cart, 'Цена товара не соотвествует цене в корзине'
 
+    @allure.step('Проверка на отсутсвие оповещения об успешном добавлении товара в корзину.')
     def should_not_be_success_message(self):
         assert self.is_not_element_present(
             *PP.PRODUCT_NAME_IN_CART), 'Оповещение о добавлении товара в корзину отображено на странице, хотя не ' \

@@ -1,6 +1,8 @@
+import allure
 from selenium.common.exceptions import NoSuchElementException, TimeoutException, NoAlertPresentException
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+
 from .locators import BasePageLocators
 
 
@@ -10,6 +12,7 @@ class BasePage:
         self.url = url
         # self.browser.implicitly_wait(timeout)
 
+    @allure.step('Открытие браузера.')
     def open(self):
         self.browser.get(self.url)
 
