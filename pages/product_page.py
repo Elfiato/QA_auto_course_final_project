@@ -13,6 +13,7 @@ class ProductPage(BasePage):
         self.should_be_add_to_cart_btn()
         self.get_present_element(*PP.ADD_TO_CART_BTN).click()
 
+    @allure.step('Проверка на наличие кнопки добавить в корзину.')
     def should_be_add_to_cart_btn(self):
         assert self.is_element_present(*PP.ADD_TO_CART_BTN), 'Кнопка добавления в корзину отсутствует.'
 
@@ -60,5 +61,6 @@ class ProductPage(BasePage):
             *PP.PRODUCT_NAME_IN_CART), 'Оповещение о добавлении товара в корзину отображено на странице, хотя не ' \
                                        'должно там быть. '
 
+    @allure.step('Проверка на исчезнование оповещения об успешном добавлении товара в корзину.')
     def is_success_message_disappeared(self):
         assert self.is_disappeared(*PP.PRODUCT_NAME_IN_CART), 'Оповещение о добавлении товара в корзину не исчезло'

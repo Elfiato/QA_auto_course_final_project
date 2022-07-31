@@ -53,16 +53,20 @@ class BasePage:
             raise NoAlertPresentException('Нет доступных оповещений для переключения.')
             # assert False, 'Нет доступных оповещений для переключения.'
 
+    @allure.step('Переход на страницу авторизации.')
     def go_to_login_page(self):
         login_link = self.get_present_element(*BasePageLocators.LOGIN_LINK)
         login_link.click()
 
+    @allure.step('Проверка на видимость кнопки авторизации.')
     def should_be_login_link(self):
         assert self.is_element_present(*BasePageLocators.LOGIN_LINK), "Ссылка на страницу авторизации не отображается"
 
+    @allure.step('Переход в корзину.')
     def go_to_basket(self):
         self.get_present_element(*BasePageLocators.BASKET_HEADER).click()
 
+    @allure.step('Проверка на появление сообщении о неавторизованном пользователе.')
     def should_be_authorized_user(self):
         assert self.is_element_present(*BasePageLocators.USER_ICON), "User icon is not presented," \
                                                                      " probably unauthorised user"
